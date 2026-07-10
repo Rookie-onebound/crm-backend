@@ -1,6 +1,9 @@
-FROM php:8.2-apache
+FROM php:8.3-apache
 
-# 开启 Apache 的 mod_rewrite 重写模块（解决 RewriteEngine 报错）
+# 安装 zip 扩展（Excel 导出需要）
+RUN docker-php-ext-install zip
+
+# 开启 Apache 的 mod_rewrite 重写模块
 RUN a2enmod rewrite
 
 # 修改 Apache 配置，允许 .htaccess 文件覆盖默认规则
