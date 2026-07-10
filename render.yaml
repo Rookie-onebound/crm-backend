@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: crm-backend
+    env: php
+    plan: starter
+    buildCommand: |
+      apt-get update && apt-get install -y php-mysql php-zip
+      composer install --no-dev --optimize-autoloader
+    startCommand: php -S 0.0.0.0:$PORT index.php
+    envVars:
+      - key: DB_HOST
+        fromDatabase:
+          name: crm-database
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: crm-database
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: crm-database
+          property: database
+      - key: DB_USER
+        fromDatabase:
+          name: crm-database
+          property: user
+      - key: DB_PASS
+        fromDatabase:
+          name: crm-database
+          property: password
