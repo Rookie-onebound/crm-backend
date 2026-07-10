@@ -1,6 +1,11 @@
 FROM php:8.3-apache
 
-# 安装 zip 扩展（Excel 导出需要）
+# 更新包列表并安装 zip 扩展所需的依赖库
+RUN apt-get update && \
+    apt-get install -y libzip-dev && \
+    rm -rf /var/lib/apt/lists/*
+
+# 安装 PHP 的 zip 扩展
 RUN docker-php-ext-install zip
 
 # 开启 Apache 的 mod_rewrite 重写模块
